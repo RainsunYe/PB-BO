@@ -1,0 +1,6 @@
+{
+  "seed": 292,
+  "alpha": 0.2,
+  "beta": 0.6,
+  "checkpoint": "data/checkpoints/masked_100_full4stage/model_best.pth"
+}

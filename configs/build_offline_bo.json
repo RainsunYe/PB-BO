@@ -1,0 +1,13 @@
+{
+  "input_csv": "dataset/offline.csv",
+  "static_features_dir": "dataset/static_features/embedding",
+  "output_dir": "data/offline_bo",
+  "seed": 42,
+  "limit": null,
+  "bert": {
+    "base_model": "bert-base-uncased",
+    "adapter_dir": "data/bert/adapter",
+    "prompt_path": "data/bert/prompt/param_value_description.txt",
+    "device": "auto"
+  }
+}

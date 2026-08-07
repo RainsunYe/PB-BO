@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+outputs/*/raw_internal/
+outputs/*/bo_memory/
+outputs/*/raw/
+data/output/
+data/llm_bottleneck/
+.DS_Store
