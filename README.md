@@ -1,10 +1,42 @@
 # PB-BO
 
-PB-BO, a parameter-centric and bottleneck-aware Bayesian optimization framework for microarchitecture exploration.
-The repository contains the omplete executable artifact for the PB-BO offline BOOM DSE baseline and the minimal
+PB-BO is a parameter-centric and bottleneck-aware Bayesian optimization framework for microarchitecture exploration.
+The repository contains the complete executable artifact for the PB-BO offline BOOM DSE baseline and the minimal
 inputs and scripts needed to rebuild its model-readable offline embeddings.
 
-## Retained package contents
+## Overview
+
+PB-BO improves microarchitecture design space exploration from two complementary directions:
+**parameter-centric representation** and **bottleneck-aware search**.
+
+<p align="center">
+  <a href="figures/intro.pdf">
+    <img src="figures/intro.png" width="760">
+  </a>
+</p>
+
+<p align="center">
+  <b>Fig. 1.</b> Challenges in Existing Microarchitecture Exploration.
+</p>
+
+PB-BO replaces value-centric design encoding with parameter-centric encoding that explicitly associates
+architectural parameters with their RTL/AST context. For search, it complements performance-aware Bayesian
+optimization with bottleneck-aware LLM guidance to prioritize more promising design directions.
+
+<p align="center">
+  <a href="figures/overview.pdf">
+    <img src="figures/overview.png" width="650">
+  </a>
+</p>
+
+<p align="center">
+  <b>Fig. 2.</b> Overview of PB-BO framework.
+</p>
+
+PB-BO combines parameter-centric multimodal representation, PPA prediction with uncertainty estimation,
+and bottleneck-aware candidate re-ranking in a closed-loop microarchitecture exploration flow.
+
+## Repository
 
 - `pb-bo`: executable entry point.
 - `dataset/offline.csv`: 4,997 configurations, 26 parameters, nine benchmark
@@ -25,46 +57,3 @@ dependencies from the single requirements file:
 
 ```bash
 pip install -r requirements-data.txt
-```
-
-The public `bert-base-uncased` base model is not duplicated because its weight
-file is about 438 MB. Pass a local model directory or allow Transformers to
-resolve the configured standard model name. The project-specific trained
-adapter is retained under `data/bert/adapter/`.
-
-## Rebuild embeddings
-
-Build into a new directory; the builder refuses to overwrite a non-empty
-output directory:
-
-```bash
-python scripts/build_offline_bo.py \
-  --config configs/build_offline_bo.json \
-  --output-dir rebuilt_offline_bo \
-  --base-model /path/to/bert-base-uncased
-```
-
-The command reads `dataset/offline.csv`, `dataset/static_features/`, and
-`data/bert/`. Build configuration, resolved paths, logs, seed, metrics, and
-artifact hashes are saved under `runs/`.
-
-## Run DSE
-
-```bash
-./pb-bo --seed 172 --alpha 0.2 --beta 0.6 --gpu 0
-```
-
-Run without LLM calls:
-
-```bash
-./pb-bo --seed 292 --alpha 0.2 --beta 0.6 --gpu 0 --no_llm
-```
-
-Compute metrics for a completed run:
-
-```bash
-./pb-bo metrics --result outputs/seed_172/result.json
-```
-
-The retained comparison results are `outputs/seed_172/` and
-`outputs/seed_292/`.
