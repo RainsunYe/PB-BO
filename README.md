@@ -1,7 +1,7 @@
 # PB-BO
 
-Complete executable artifact for the PB-BO offline BOOM DSE baseline. The
-`pb-bo` executable is unchanged. The repository also contains the minimal
+PB-BO, a parameter-centric and bottleneck-aware Bayesian optimization framework for microarchitecture exploration.
+The repository contains the omplete executable artifact for the PB-BO offline BOOM DSE baseline and the minimal
 inputs and scripts needed to rebuild its model-readable offline embeddings.
 
 ## Retained package contents
